@@ -34,17 +34,17 @@ export default class FragmentAnchor {
     return new FragmentAnchor(selector.value);
   }
 
-  toSelector() {
-    return {
-      type: 'FragmentSelector',
-      value: this.id,
-    };
-  }
-
   toRange() {
     let el = global.document.getElementById(this.id);
     let range = global.document.createRange();
     range.selectNode(el);
     return range;
+  }
+
+  toSelector() {
+    return {
+      type: 'FragmentSelector',
+      value: this.id,
+    };
   }
 }
