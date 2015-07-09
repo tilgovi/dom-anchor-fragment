@@ -14,8 +14,14 @@ export default class FragmentAnchor {
   }
 
   static fromRange(range) {
-    //id = $(range.commonAncestorContainer).closest('[id]').attr('id')
-    return new FragmentAnchor(id);
+    let node = range.commonAncestorContainer;
+    while (node != null && node.id == null) {
+      node = node.parentNode;
+    }
+    if (node == null) {
+      throw new Error('no fragment identifier found');
+    }
+    return new FragmentAnchor(node.id);
   }
 
   static fromSelector(selector) {
