@@ -1,7 +1,7 @@
 {
   "name": "dom-anchor-fragment",
   "version": "1.0.0",
-  "description": "Locate a DOM Range identified by a fragment selector.",
+  "description": "Convert between DOM Range instances and fragment identifiers.",
   "scripts": {
     "test": "karma start"
   },
