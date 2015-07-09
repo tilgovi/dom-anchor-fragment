@@ -36,6 +36,9 @@ export default class FragmentAnchor {
 
   toRange() {
     let el = global.document.getElementById(this.id);
+    if (el == null) {
+      throw new Error('no element found with id "' + this.id + '"');
+    }
     let range = global.document.createRange();
     range.selectNodeContents(el);
     return range;

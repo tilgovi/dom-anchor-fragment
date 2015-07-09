@@ -72,6 +72,12 @@ describe('FragmentAnchor', () => {
       let range = anchor.toRange();
       assert.strictEqual(range.commonAncestorContainer, fixture.el);
     });
+
+    it('throws an error if no node exists with the stored id', () => {
+      let anchor = new FragmentAnchor('bogus');
+      let attempt = () => anchor.toRange();
+      assert.throws(attempt, 'no element found');
+    });
   });
 
   describe('toSelector', () => {
