@@ -37,7 +37,7 @@ export default class FragmentAnchor {
   toRange() {
     let el = global.document.getElementById(this.id);
     let range = global.document.createRange();
-    range.selectNode(el);
+    range.selectNodeContents(el);
     return range;
   }
 

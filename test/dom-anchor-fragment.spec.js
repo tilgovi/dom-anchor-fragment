@@ -38,14 +38,14 @@ describe('FragmentAnchor', () => {
 
     it('returns a FragmentAnchor if the common ancestor has an id', () => {
       let range = global.document.createRange();
-      range.selectNode(fixture.el.childNodes[0]);
+      range.selectNodeContents(fixture.el);
       let anchor = FragmentAnchor.fromRange(range);
       assert.equal(anchor.id, fixture.el.id);
     });
 
     it('returns a FragmentAnchor if any ancestor has an id', () => {
       let range = global.document.createRange();
-      range.selectNode(fixture.el.childNodes[0].childNodes[0]);
+      range.selectNodeContents(fixture.el.childNodes[0]);
       let anchor = FragmentAnchor.fromRange(range);
       assert.equal(anchor.id, fixture.el.id);
     });
