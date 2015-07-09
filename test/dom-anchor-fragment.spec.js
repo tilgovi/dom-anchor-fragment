@@ -50,4 +50,19 @@ describe('FragmentAnchor', () => {
       assert.equal(anchor.id, fixture.el.id);
     });
   });
+
+  describe('fromSelector', () => {
+    it('requires a selector argument', () => {
+      let construct = () => FragmentAnchor.fromSelector();
+      assert.throws(construct, 'required parameter');
+    });
+
+    it('returns a FragmentAnchor from the value of the selector', () => {
+      let selector = {
+        value: 'foo',
+      };
+      let anchor = FragmentAnchor.fromSelector(selector);
+      assert(anchor.id === selector.value);
+    });
+  });
 });
