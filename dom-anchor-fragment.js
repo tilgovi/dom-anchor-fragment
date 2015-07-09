@@ -14,8 +14,11 @@ export default class FragmentAnchor {
   }
 
   static fromRange(range) {
+    if (range === undefined) {
+      throw new Error('missing required parameter "range"');
+    }
     let node = range.commonAncestorContainer;
-    while (node != null && node.id == null) {
+    while (node != null && !node.id) {
       node = node.parentNode;
     }
     if (node == null) {
