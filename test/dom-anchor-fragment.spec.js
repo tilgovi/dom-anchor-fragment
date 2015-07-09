@@ -73,4 +73,13 @@ describe('FragmentAnchor', () => {
       assert.strictEqual(range.commonAncestorContainer, fixture.el);
     });
   });
+
+  describe('toSelector', () => {
+    it('returns a selector with the value of the identified node', () => {
+      let anchor = new FragmentAnchor(fixture.el.id);
+      let selector = anchor.toSelector();
+      assert.equal(selector.type, 'FragmentSelector');
+      assert.equal(selector.value, fixture.el.id);
+    });
+  });
 });
