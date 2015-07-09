@@ -45,9 +45,18 @@ export default class FragmentAnchor {
   }
 
   toSelector() {
+    let el = global.document.getElementById(this.id);
+    if (el == null) {
+      throw new Error('no element found with id "' + this.id + '"');
+    }
+    let conformsTo = 'https://tools.ietf.org/html/rfc3236';
+    if (el instanceof SVGElement) {
+      conformsTo = 'http://www.w3.org/TR/SVG/';
+    }
     return {
       type: 'FragmentSelector',
       value: this.id,
+      conformsTo: conformsTo,
     };
   }
 }

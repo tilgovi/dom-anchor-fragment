@@ -86,6 +86,23 @@ describe('FragmentAnchor', () => {
       let selector = anchor.toSelector();
       assert.equal(selector.type, 'FragmentSelector');
       assert.equal(selector.value, fixture.el.id);
+      assert.equal(selector.conformsTo, 'https://tools.ietf.org/html/rfc3236');
+    });
+
+    it('returns a selector for an SVGElement', () => {
+      let svg = global.document.createElementNS(
+        'http://www.w3.org/2000/svg', 'svg');
+      let rect = global.document.createElementNS(
+        'http://www.w3.org/2000/svg', 'rect');
+      rect.id = 'rectangle1';
+      fixture.el.appendChild(svg);
+      svg.appendChild(rect);
+      let anchor = new FragmentAnchor(rect.id);
+      let selector = anchor.toSelector();
+      assert.equal(selector.type, 'FragmentSelector');
+      assert.equal(selector.value, rect.id);
+      assert.equal(selector.conformsTo, 'http://www.w3.org/TR/SVG/');
+    });
     });
   });
 });
