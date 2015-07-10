@@ -32,7 +32,7 @@ describe('FragmentAnchor', () => {
 
     it('throws an error if no fragment identifier is found', () => {
       let range = global.document.createRange();
-      range.selectNode(fixture.el);
+      range.selectNode(global.document.body);
       assert.throws(() => FragmentAnchor.fromRange(range), 'no fragment');
     });
 
