@@ -2,7 +2,7 @@ import FragmentAnchor from '../dom-anchor-fragment'
 
 describe('FragmentAnchor', () => {
   before(() => {
-    fixture.setBase('test/fixtures')
+    fixture.setBase('test/fixtures');
   });
 
   beforeEach(() => {
@@ -14,7 +14,7 @@ describe('FragmentAnchor', () => {
   });
 
   it('is a function', () => {
-    assert.isFunction(FragmentAnchor)
+    assert.isFunction(FragmentAnchor);
   });
 
   it('requires an id argument to the constructor', () => {
