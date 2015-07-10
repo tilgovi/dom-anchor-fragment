@@ -103,6 +103,11 @@ describe('FragmentAnchor', () => {
       assert.equal(selector.value, rect.id);
       assert.equal(selector.conformsTo, 'http://www.w3.org/TR/SVG/');
     });
+
+    it('throws an error if no Element exists with the stored id', () => {
+      let anchor = new FragmentAnchor('bogus');
+      let attempt = () => anchor.toSelector();
+      assert.throws(attempt, 'no element found');
     });
   });
 });
