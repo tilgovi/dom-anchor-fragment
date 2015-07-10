@@ -13,15 +13,17 @@ describe('FragmentAnchor', () => {
     fixture.cleanup();
   });
 
-  it('is a function', () => {
-    assert.isFunction(FragmentAnchor);
-  });
+  describe('constructor', () => {
+    it('is a function', () => {
+      assert.isFunction(FragmentAnchor);
+    });
 
-  it('requires an id argument to the constructor', () => {
-    let construct = () => new FragmentAnchor();
-    assert.throws(construct,'required parameter');
-    let instance = new FragmentAnchor('foo');
-    assert.instanceOf(instance, FragmentAnchor);
+    it('requires an id argument to the constructor', () => {
+      let construct = () => new FragmentAnchor();
+      assert.throws(construct,'required parameter');
+      let instance = new FragmentAnchor('foo');
+      assert.instanceOf(instance, FragmentAnchor);
+    });
   });
 
   describe('fromRange', () => {
