@@ -45,7 +45,7 @@ describe('FragmentAnchor', () => {
 
     it('returns a FragmentAnchor if any ancestor has an id', () => {
       let range = global.document.createRange();
-      range.selectNodeContents(fixture.el.childNodes[0]);
+      range.selectNodeContents(fixture.el.children[0]);
       let anchor = FragmentAnchor.fromRange(range);
       assert.equal(anchor.id, fixture.el.id);
     });
@@ -67,13 +67,13 @@ describe('FragmentAnchor', () => {
   });
 
   describe('toRange', () => {
-    it('returns a range selecting the contents of the identified node', () => {
+    it('returns a range selecting the contents of the Element', () => {
       let anchor = new FragmentAnchor(fixture.el.id);
       let range = anchor.toRange();
       assert.strictEqual(range.commonAncestorContainer, fixture.el);
     });
 
-    it('throws an error if no node exists with the stored id', () => {
+    it('throws an error if no Element exists with the stored id', () => {
       let anchor = new FragmentAnchor('bogus');
       let attempt = () => anchor.toRange();
       assert.throws(attempt, 'no element found');
@@ -81,7 +81,7 @@ describe('FragmentAnchor', () => {
   });
 
   describe('toSelector', () => {
-    it('returns a selector with the value of the identified node', () => {
+    it('returns a selector for an HTMLElement', () => {
       let anchor = new FragmentAnchor(fixture.el.id);
       let selector = anchor.toSelector();
       assert.equal(selector.type, 'FragmentSelector');

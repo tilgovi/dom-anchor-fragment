@@ -17,14 +17,14 @@ export default class FragmentAnchor {
     if (range === undefined) {
       throw new Error('missing required parameter "range"');
     }
-    let node = range.commonAncestorContainer;
-    while (node != null && !node.id) {
-      node = node.parentNode;
+    let el = range.commonAncestorContainer;
+    while (el != null && !el.id) {
+      el = el.parentElement;
     }
-    if (node == null) {
+    if (el == null) {
       throw new Error('no fragment identifier found');
     }
-    return new FragmentAnchor(node.id);
+    return new FragmentAnchor(el.id);
   }
 
   static fromSelector(selector) {
