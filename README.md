@@ -31,15 +31,17 @@ With AMD loaders, these scripts should also work.
 Usage
 =====
 
+## API Documentation
+
 The module exposes a single constructor function, `FragmentAnchor`.
 
-## `new FragmentAnchor(id)`
+### `new FragmentAnchor(id)`
 
 The `id` argument is required, but it is not necessary for any node to exist
 in the DOM with a matching `id` property. Only when this anchor is converted
 to a `Range` will the instance check the validity of the identifier.
 
-## `FragmentAnchor.fromRange(range)`
+### `FragmentAnchor.fromRange(range)`
 
 Provided with an existing `Range` instance this will return a `FragmentAnchor`
 instance that stores the `id` attribute of the common ancestor container. If
@@ -49,17 +51,17 @@ the `id` of its first ancestor that does have a non-empty `id` attribute.
 If no element can be found in the ancestry of the `Range` that has a non-empty
 `id` attribute then this function will raise an exception.
 
-## `FragmentAnchor.fromSelector(selector)`
+### `FragmentAnchor.fromSelector(selector)`
 
 Provided with an `Object` containing a `value` key that has a `String` value
 this will return a `FragmentAnchor` that refers to that value.
 
-## `FragmentAnchor.prototype.toRange()`
+### `FragmentAnchor.prototype.toRange()`
 
 This method returns a `Range` object that selects the contents of the element
 identified by the anchor.
 
-## `FragmentAnchor.prototype.toSelector()`
+### `FragmentAnchor.prototype.toSelector()`
 
 This method returns an `Object` that has keys `type` and `value` where `type`
 is `"FragmentSelector"` and the value is the `id` referred to be the anchor.
