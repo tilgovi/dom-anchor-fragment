@@ -18,44 +18,69 @@ describe('FragmentAnchor', () => {
       assert.isFunction(FragmentAnchor);
     });
 
-    it('requires an id argument to the constructor', () => {
+    it('requires root argument', () => {
       let construct = () => new FragmentAnchor();
       assert.throws(construct,'required parameter');
-      let instance = new FragmentAnchor('foo');
+    });
+
+    it('requires an id argument', () => {
+      let construct = () => new FragmentAnchor(fixture.el);
+      assert.throws(construct,'required parameter');
+    });
+
+    it('constructs a new instance with the given root and id', () => {
+      let root = fixture.el;
+      let instance = new FragmentAnchor(root, 'foo');
       assert.instanceOf(instance, FragmentAnchor);
+      assert.equal(instance.root, fixture.el);
+      assert.equal(instance.id, 'foo');
     });
   });
 
   describe('fromRange', () => {
-    it('requires a range argument', () => {
+    it('requires a root argument', () => {
       let construct = () => FragmentAnchor.fromRange();
       assert.throws(construct, 'required parameter');
     });
 
+    it('requires a range argument', () => {
+      let construct = () => FragmentAnchor.fromRange(global.document.body);
+      assert.throws(construct, 'required parameter');
+    });
+
     it('throws an error if no fragment identifier is found', () => {
+      let root = fixture.el;
       let range = global.document.createRange();
-      range.selectNode(global.document.body);
-      assert.throws(() => FragmentAnchor.fromRange(range), 'no fragment');
+      range.selectNode(root);
+      let attempt = () => FragmentAnchor.fromRange(root, range);
+      assert.throws(attempt, 'no fragment');
     });
 
     it('returns a FragmentAnchor if the common ancestor has an id', () => {
+      let root = fixture.el;
       let range = global.document.createRange();
-      range.selectNodeContents(fixture.el);
-      let anchor = FragmentAnchor.fromRange(range);
+      range.selectNodeContents(root);
+      let anchor = FragmentAnchor.fromRange(root, range);
       assert.equal(anchor.id, fixture.el.id);
     });
 
     it('returns a FragmentAnchor if any ancestor has an id', () => {
+      let root = fixture.el;
       let range = global.document.createRange();
       range.selectNodeContents(fixture.el.children[0]);
-      let anchor = FragmentAnchor.fromRange(range);
+      let anchor = FragmentAnchor.fromRange(root, range);
       assert.equal(anchor.id, fixture.el.id);
     });
   });
 
   describe('fromSelector', () => {
-    it('requires a selector argument', () => {
+    it('requires a root argument', () => {
       let construct = () => FragmentAnchor.fromSelector();
+      assert.throws(construct, 'required parameter');
+    });
+
+    it('requires a selector argument', () => {
+      let construct = () => FragmentAnchor.fromSelector(fixture.el);
       assert.throws(construct, 'required parameter');
     });
 
@@ -63,20 +88,23 @@ describe('FragmentAnchor', () => {
       let selector = {
         value: 'foo',
       };
-      let anchor = FragmentAnchor.fromSelector(selector);
+      let anchor = FragmentAnchor.fromSelector(fixture.el, selector);
+      assert(anchor.root === fixture.el);
       assert(anchor.id === selector.value);
     });
   });
 
   describe('toRange', () => {
     it('returns a range selecting the contents of the Element', () => {
-      let anchor = new FragmentAnchor(fixture.el.id);
+      let root = global.document.body;
+      let anchor = new FragmentAnchor(root, fixture.el.id);
       let range = anchor.toRange();
       assert.strictEqual(range.commonAncestorContainer, fixture.el);
     });
 
     it('throws an error if no Element exists with the stored id', () => {
-      let anchor = new FragmentAnchor('bogus');
+      let root = global.document.body;
+      let anchor = new FragmentAnchor(root, 'bogus');
       let attempt = () => anchor.toRange();
       assert.throws(attempt, 'no element found');
     });
@@ -84,7 +112,7 @@ describe('FragmentAnchor', () => {
 
   describe('toSelector', () => {
     it('returns a selector for an HTMLElement', () => {
-      let anchor = new FragmentAnchor(fixture.el.id);
+      let anchor = new FragmentAnchor(global.document.body, fixture.el.id);
       let selector = anchor.toSelector();
       assert.equal(selector.type, 'FragmentSelector');
       assert.equal(selector.value, fixture.el.id);
@@ -99,7 +127,7 @@ describe('FragmentAnchor', () => {
       rect.id = 'rectangle1';
       fixture.el.appendChild(svg);
       svg.appendChild(rect);
-      let anchor = new FragmentAnchor(rect.id);
+      let anchor = new FragmentAnchor(svg, rect.id);
       let selector = anchor.toSelector();
       assert.equal(selector.type, 'FragmentSelector');
       assert.equal(selector.value, rect.id);
@@ -107,7 +135,7 @@ describe('FragmentAnchor', () => {
     });
 
     it('throws an error if no Element exists with the stored id', () => {
-      let anchor = new FragmentAnchor('bogus');
+      let anchor = new FragmentAnchor(fixture.el, 'bogus');
       let attempt = () => anchor.toSelector();
       assert.throws(attempt, 'no element found');
     });

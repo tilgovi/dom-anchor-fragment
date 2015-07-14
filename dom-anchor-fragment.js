@@ -1,58 +1,64 @@
-/**
-* class:: FragmentAnchor(id)
-*
-* An anchor representing a fragment identifier.
-*
-* :param String id: The id of the fragment identified by the anchor.
-*/
 export default class FragmentAnchor {
-  constructor(id) {
+  constructor(root, id) {
+    if (root === undefined) {
+      throw new Error('missing required parameter "root"');
+    }
     if (id === undefined) {
       throw new Error('missing required parameter "id"');
     }
+
+    this.root = root;
     this.id = id;
   }
 
-  static fromRange(range) {
+  static fromRange(root, range) {
+    if (root === undefined) {
+      throw new Error('missing required parameter "root"');
+    }
     if (range === undefined) {
       throw new Error('missing required parameter "range"');
     }
+
     let el = range.commonAncestorContainer;
     while (el != null && !el.id) {
-      el = el.parentElement;
+      if (root.compareDocumentPosition(el) &
+          Node.DOCUMENT_POSITION_CONTAINED_BY) {
+        el = el.parentElement;
+      } else {
+        throw new Error('no fragment identifier found');
+      }
     }
-    if (el == null) {
-      throw new Error('no fragment identifier found');
-    }
-    return new FragmentAnchor(el.id);
+
+    return new FragmentAnchor(root, el.id);
   }
 
-  static fromSelector(selector) {
-    if (selector === undefined) {
-      throw new Error('missing required parameter "selector"');
-    }
-    return new FragmentAnchor(selector.value);
+  static fromSelector(root, selector = {}) {
+    return new FragmentAnchor(root, selector.value);
   }
 
   toRange() {
-    let el = global.document.getElementById(this.id);
+    let el = this.root.querySelector('#' + this.id);
     if (el == null) {
       throw new Error('no element found with id "' + this.id + '"');
     }
+
     let range = global.document.createRange();
     range.selectNodeContents(el);
+
     return range;
   }
 
   toSelector() {
-    let el = global.document.getElementById(this.id);
+    let el = this.root.querySelector('#' + this.id);
     if (el == null) {
       throw new Error('no element found with id "' + this.id + '"');
     }
+
     let conformsTo = 'https://tools.ietf.org/html/rfc3236';
     if (el instanceof SVGElement) {
       conformsTo = 'http://www.w3.org/TR/SVG/';
     }
+
     return {
       type: 'FragmentSelector',
       value: this.id,

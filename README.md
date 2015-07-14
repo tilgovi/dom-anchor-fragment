@@ -35,13 +35,19 @@ Usage
 
 The module exposes a single constructor function, `FragmentAnchor`.
 
-### `new FragmentAnchor(id)`
+### `new FragmentAnchor(root, id)`
 
-The `id` argument is required, but it is not necessary for any node to exist
-in the DOM with a matching `id` property. Only when this anchor is converted
-to a `Range` will the instance check the validity of the identifier.
+The `root` argument is required and sets the context for the selector. A
+fragment is valid if it refers to a node contained by the root.
 
-### `FragmentAnchor.fromRange(range)`
+The `id` argument is required and sets the fragment identifier selected by this
+anchor.
+
+It is not necessary for any node to exist in the DOM with a matching `id`
+property. Only when this anchor is converted to a `Range` or a selector will
+the instance check the validity of the identifier.
+
+### `FragmentAnchor.fromRange(root, range)`
 
 Provided with an existing `Range` instance this will return a `FragmentAnchor`
 instance that stores the `id` attribute of the common ancestor container. If
@@ -49,12 +55,14 @@ the common ancestor container has no `id` attribute then the anchor will take
 the `id` of its first ancestor that does have a non-empty `id` attribute.
 
 If no element can be found in the ancestry of the `Range` that has a non-empty
-`id` attribute then this function will raise an exception.
+`id` attribute and is contained by the root then this function will raise an
+exception.
 
-### `FragmentAnchor.fromSelector(selector)`
+### `FragmentAnchor.fromSelector(root, selector)`
 
-Provided with an `Object` containing a `value` key that has a `String` value
-this will return a `FragmentAnchor` that refers to that value.
+Provided with root `Element` and an `Object` containing a `value` key that has
+a `String` value this will return a `FragmentAnchor` that refers to an
+`Element` with an `id` matching the value contained by the root.
 
 ### `FragmentAnchor.prototype.toRange()`
 
