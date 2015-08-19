@@ -1,4 +1,4 @@
-import FragmentAnchor from '../dom-anchor-fragment'
+import FragmentAnchor from '../FragmentAnchor';
 
 describe('FragmentAnchor', () => {
   before(() => {
