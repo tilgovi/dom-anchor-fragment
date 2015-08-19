@@ -20,7 +20,7 @@ Installation
 
 There are a few different ways to include the library.
 
-With a CommonJS bundler to `require('dom-anchor-fragment')`:
+With a CommonJS bundler, to `require('dom-anchor-fragment')`:
 
     npm install dom-anchor-fragment
 

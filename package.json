@@ -22,8 +22,8 @@
     "url": "https://github.com/hypothesis/dom-anchor-fragment/issues"
   },
   "homepage": "https://github.com/tilgovi/dom-anchor-fragment",
-  "main": "dist/dom-anchor-fragment.js",
-  "browser": "dom-anchor-fragment.js",
+  "main": "dist/FragmentAnchor.js",
+  "browser": "FragmentAnchor.js",
   "browserify": {
     "transform": [
       "babelify"

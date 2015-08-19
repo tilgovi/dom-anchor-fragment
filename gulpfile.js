@@ -7,7 +7,7 @@ var uglify = require('gulp-uglify');
 
 
 gulp.task('default', function () {
-  return gulp.src('dom-anchor-fragment.js')
+  return gulp.src('FragmentAnchor.js')
     .pipe(sourcemaps.init())
     .pipe(babel({modules: 'umd'}))
     .pipe(sourcemaps.write({sourceRoot: './'}))
