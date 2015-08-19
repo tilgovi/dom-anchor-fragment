@@ -42,7 +42,7 @@ export default class FragmentAnchor {
       throw new Error('no element found with id "' + this.id + '"');
     }
 
-    let range = global.document.createRange();
+    let range = this.root.ownerDocument.createRange();
     range.selectNodeContents(el);
 
     return range;
