@@ -1,6 +1,6 @@
 {
   "name": "dom-anchor-fragment",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Convert between DOM Range instances and fragment identifiers.",
   "scripts": {
     "test": "karma start"
