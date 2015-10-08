@@ -3,8 +3,8 @@ Fragment Anchor
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](http://opensource.org/licenses/MIT)
 [![NPM Package](https://img.shields.io/npm/v/dom-anchor-fragment.svg)](https://www.npmjs.com/package/dom-anchor-fragment)
-[![Build Status](https://travis-ci.org/hypothesis/dom-anchor-fragment.svg?branch=master)](https://travis-ci.org/hypothesis/dom-anchor-fragment)
-[![Coverage Status](https://coveralls.io/repos/hypothesis/dom-anchor-fragment/badge.svg?branch=master)](https://coveralls.io/r/hypothesis/dom-anchor-fragment?branch=master)
+[![Build Status](https://travis-ci.org/tilgovi/dom-anchor-fragment.svg?branch=master)](https://travis-ci.org/tilgovi/dom-anchor-fragment)
+[![Coverage Status](https://coveralls.io/repos/tilgovi/dom-anchor-fragment/badge.svg?branch=master)](https://coveralls.io/r/tilgovi/dom-anchor-fragment?branch=master)
 
 This library offers conversion between a DOM `Range` instance and a fragment
 selector as defined by the Web Annotation Data Model.
