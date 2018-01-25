@@ -28,6 +28,10 @@ export default class FragmentAnchor {
         throw new Error('no fragment identifier found');
       }
     }
+    
+    if (el === root) {
+      throw new Error('no fragment identifier found');
+    }
 
     return new FragmentAnchor(root, el.id);
   }
